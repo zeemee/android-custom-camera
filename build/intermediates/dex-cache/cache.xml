@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_168be8fd58700aee712a8c493ca75309ab3e0eb0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="16795a75616fe3ba9df9ae4af09202145e3a26dc">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.afollestad.material-dialogs-core-0.9.1.0_a7b2c8fa7a9011c26d059578d7b15e1fe8ac0a01.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="75b1f366ff0bbc78f8b1f7cf0dc82e7c53afef6a">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.0.0_bca11f284e9103e85fd14db06860153053df2241.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="76fb65a4b41ea42dab8a1310ed772a2420c96b52">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.0.0_6b730e4b155f1db79ab04f201cfac076322cb30b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.writingminds/FFmpegAndroid/0.3.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="722acae466ccefebedf8a6631384e83bf3139f7c">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.writingminds-FFmpegAndroid-0.3.2_dfba9a3bbd7abf5e8244b1405c89ff60f71ebebb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_4eea29167df8ca81bdef07d3e65cf831e5e0ba93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-v13/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="67355078cd30daae43f62ba47a4663ee6edb976e">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_1d41d6980e825b3270c1710bc64463518bf368ee.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.afollestad/library/0.4.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="57a32f99ef00695e5ebb4c18b291eb54400e373a">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.afollestad-library-0.4.4_f6d75ec3d9b54277f037b8d7d6c87cde167fe9d4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7c9ef64fc4b3c21a9b584017a93d7fe739ae711a">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.afollestad-easyvideoplayer-0.3.0_1588ab12754647044f99e80adabf042fd6b0ce59.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="3b61a70884adaf0be3fc06c70c801e3e6df13133">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_5d121934be0a1a550413c8f7a7cac9dcae304153.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="07daa0b6e1d455c82a38422ffe287c18823d339a">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.0.0_8ae7aaf51a2650efcfa7222e7f29182915c171d7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.0.0_80af8ead6f7fd2eab9e8331a114d6b9242edc0f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8bc45ce1f63d1a391fd38b32a201be5a42f9c95d">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.0.0_c8f9513aebf543fe717cab3c12e5f2402e29c7fd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="665d21a8a069c96b4d9e8b434f5096d865b4e261">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_f1ce9b9a18bc10a0516e500265424dde04edfe3a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ee5faf4dee5b6a4364bf51587871047dde7c703a">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/internal_impl-25.0.0_460e11e1c1da8fc618ea9a7db0f544e7af1003a8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d29714cc76b38157e3cbd034c66e1ec808eb4c19">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.0.0_d1dbdd31acc7bcc6339668e5beb6c60b941a4840.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="4ccbcda5c72027c7f7c14be9ff8640d9cb0d8da0">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.0.0_0310644722dbadb7dca236323b019c12f5a9f2ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/me.zhanghai.android.materialprogressbar/library/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a846ddbf5bf88dee5f89d4dffe22c864f576d9b0">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/me.zhanghai.android.materialprogressbar-library-1.3.0_e9246f70f8ba2cdb5f81807c5d739c56b57617ab.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="26674000177e45447a0326a6ad84612761199a13">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.0.0_4ca1e41fa66e1464d816744e3af637610d1aff3d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-v13/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6ac094121e75b4b87432beb9305d70c68ec6dcab">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-v13-25.0.0_c64a9b8bf0369b3d3bb0a03d378b6ef8a4d64ce1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5e497d60f0cb6ce87c458ac5420a46d0fed49bd0">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.0.0_18b01525bdbdd5bca22fb9cd4369a7107e33671b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.0.0_9e407d89bcb32922102ed3b5a4a192761abd7e79.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.0/support-annotations-25.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="a22d2cc94da87b254451fa8ed28afc30b4653773">
+        <dex dex="/Users/babs/Documents/Practise/custom-camera/sample/build/intermediates/pre-dexed/debug/support-annotations-25.0.0_b2911b17cbc760380b38cb897116a0e00baf2146.jar" />
+    </item>
+
+</items>
