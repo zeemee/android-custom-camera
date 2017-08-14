@@ -40,6 +40,7 @@ import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.R;
@@ -386,7 +387,9 @@ public class Camera2Fragment extends BaseCameraFragment implements View.OnClickL
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
+        RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.controlsFrame);
+        mTextureView = (AutoFitTextureView) view.findViewById(R.id.cameraPreview);
+        Log.d("ZEEMEE", "Camera2Fragment::onViewCreated:");
     }
 
     @Override

@@ -37,12 +37,12 @@
     </RelativeLayout>
 
 
-    <include
-        layout="@layout/mcam_include_camera_preview"
+    <com.afollestad.materialcamera.internal.AutoFitTextureView
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_above="@+id/controlsFrame"
-        android:id="@+id/cameraPreview"/>
+        android:id="@+id/cameraPreview"
+        android:layout_centerInParent="true"/>
 
     <RelativeLayout
         android:id="@+id/controlsFrame"

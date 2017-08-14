@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:foreground="?selectableItemBackground">
 
-    <include
-        layout="@layout/mcam_include_camera_preview"
+    <com.afollestad.materialcamera.internal.AutoFitTextureView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toLeftOf="@+id/controlsFrame"
-        android:layout_toStartOf="@+id/controlsFrame" />
+        android:layout_toStartOf="@+id/controlsFrame"
+        android:layout_centerInParent="true"/>
 
     <RelativeLayout
         android:id="@+id/controlsFrame"

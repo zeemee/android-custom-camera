@@ -16,7 +16,7 @@ import java.io.File;
  */
 
 public class VideoCropUtils {
-
+    final static String TAG = "ZEEMEE";
     public static void loadLibrary(Context context) {
         FFmpeg ffmpeg = FFmpeg.getInstance(context.getApplicationContext());
         try {
@@ -24,27 +24,27 @@ public class VideoCropUtils {
 
                 @Override
                 public void onStart() {
-                    Log.d("###", "loadBinary:onStart()");
+                    Log.d(TAG, "loadBinary:onStart()");
                 }
 
                 @Override
                 public void onFailure() {
-                    Log.d("###", "loadBinary:onFailure()");
+                    Log.d(TAG, "loadBinary:onFailure()");
                 }
 
                 @Override
                 public void onSuccess() {
-                    Log.d("###", "loadBinary:onSuccess()");
+                    Log.d(TAG, "loadBinary:onSuccess()");
                 }
 
                 @Override
                 public void onFinish() {
-                    Log.d("###", "loadBinary:onFinish()");
+                    Log.d(TAG, "loadBinary:onFinish()");
                 }
             });
         } catch (FFmpegNotSupportedException e) {
             // Handle if FFmpeg is not supported by device
-            Log.d("###", "loadBinary:error: " + e);
+            Log.d(TAG, "loadBinary:error: " + e);
         }
     }
 
@@ -52,41 +52,44 @@ public class VideoCropUtils {
         String croppedUrl = "";
         FFmpeg ffmpeg = FFmpeg.getInstance(context.getApplicationContext());
         try {
+            // execFFmpegCommand("-i " + path.getAbsolutePath() + " -ss " + startMs / 1000 + " -to " + endMs / 1000 + " -strict -2 -async 1 " + dest.getAbsolutePath());
+            //
             croppedUrl = file.getParent() + "/Cropped_" + file.getName();
+            //ffmpeg -i movie.mp4 -vf "crop=640:256:0:400" -threads 5 -preset ultrafast -strict -2 YourCroppedMovie.mp4
             String[] cmds = new String[]{"-i", file.getAbsolutePath(), "-filter:v", "crop=out_h=in_w", croppedUrl};
-
+            //String[] cmds = {"-i", file.getAbsolutePath(), "-vf", "crop=640:640:0:400", "-threads", "5", "-preset" ,"ultrafast","-strict","-2",croppedUrl};
 
             ffmpeg.execute(cmds, new ExecuteBinaryResponseHandler() {
 
                 @Override
                 public void onStart() {
-                    Log.d("###", "cropVideo:onStart()");
+                    Log.d(TAG, "cropVideo:onStart()");
                 }
 
                 @Override
                 public void onProgress(String message) {
-                    Log.d("###", "cropVideo:onProgress(): " + message);
+                    Log.d(TAG, "cropVideo:onProgress(): " + message);
                 }
 
                 @Override
                 public void onFailure(String message) {
-                    Log.d("###", "cropVideo:onFailure(): " + message);
+                    Log.d(TAG, "cropVideo:onFailure(): " + message);
                 }
 
                 @Override
                 public void onSuccess(String message) {
                     file.delete();
-                    Log.d("###", "cropVideo:onSuccess(): " + message);
+                    Log.d(TAG, "cropVideo:onSuccess(): " + message);
                 }
 
                 @Override
                 public void onFinish() {
-                    Log.d("###", "cropVideo:onFinish()");
+                    Log.d(TAG, "cropVideo:onFinish()");
                     mBaseCaptureListener.videoCropStatus(true);
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {
-            Log.d("###", "cropVideo:error: " + e);
+            Log.d(TAG, "cropVideo:error: " + e);
         }
         return croppedUrl;
     }

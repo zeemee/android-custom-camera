@@ -92,7 +92,9 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.mcam_fragment_videocapture, container, false);
+        View v = inflater.inflate(R.layout.mcam_fragment_videocapture, container, false);
+
+        return v;
     }
 
     protected void setImageRes(ImageView iv, @DrawableRes int res) {
