@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -65,7 +66,7 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
     public void onResume() {
         super.onResume();
         if (getActivity() != null)
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
@@ -109,7 +110,9 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
             startCountdownTimer();
         }
 
-        //mPlayer.setSource(Uri.parse(mOutputUri));
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            mPlayer.setSource(Uri.parse(mOutputUri));
+        }
     }
 
     private void startCountdownTimer() {

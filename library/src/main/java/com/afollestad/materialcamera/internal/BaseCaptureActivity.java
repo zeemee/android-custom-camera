@@ -342,9 +342,18 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                 // No countdown or countdown should not continue through playback, reset timer to 0
                 setRecordingStart(-1);
             }
-            squareCropVideo(outputUri);
+            checkForAndroidVersion(outputUri);
         }
     }
+
+    private void checkForAndroidVersion(String outputUri) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
+            squareCropVideo(outputUri);
+        } else {
+            doNotCropVideo(outputUri);
+        }
+    }
+
 
     private void squareCropVideo(@Nullable String videoUri) {
         File inputFile = new File(Uri.parse(videoUri).getPath());
@@ -357,6 +366,17 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                 .replace(R.id.container, mPlaybackVideoFragment)
                 .commit();
     }
+
+
+    private void doNotCropVideo(String outputUri) {
+        Fragment frag =
+                PlaybackVideoFragment.newInstance(
+                        outputUri, allowRetry(), getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
+        getFragmentManager().beginTransaction().replace(R.id.container, frag).commit();
+    }
+
+
+
 
     @Override
     public void onShowStillshot(String outputUri) {

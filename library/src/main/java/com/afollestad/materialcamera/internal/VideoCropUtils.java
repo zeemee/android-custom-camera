@@ -56,8 +56,8 @@ public class VideoCropUtils {
             //
             croppedUrl = file.getParent() + "/Cropped_" + file.getName();
             //ffmpeg -i movie.mp4 -vf "crop=640:256:0:400" -threads 5 -preset ultrafast -strict -2 YourCroppedMovie.mp4
-            String[] cmds = new String[]{"-i", file.getAbsolutePath(), "-filter:v", "crop=out_h=in_w", croppedUrl};
-            //String[] cmds = {"-i", file.getAbsolutePath(), "-vf", "crop=640:640:0:400", "-threads", "5", "-preset" ,"ultrafast","-strict","-2",croppedUrl};
+//            String[] cmds = new String[]{"-i", file.getAbsolutePath(), "-filter:v", "crop=out_h=in_w", croppedUrl};
+            String[] cmds = {"-i", file.getAbsolutePath(), "-vf", "crop=640:640:0:400", "-threads", "5", "-preset" ,"ultrafast","-strict","-2",croppedUrl};
 
             ffmpeg.execute(cmds, new ExecuteBinaryResponseHandler() {
 
