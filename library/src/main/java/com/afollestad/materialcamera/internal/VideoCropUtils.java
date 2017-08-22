@@ -2,6 +2,7 @@ package com.afollestad.materialcamera.internal;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
@@ -48,16 +49,15 @@ public class VideoCropUtils {
         }
     }
 
-    public static String cropVideo(Context context, final File file, final BaseCaptureInterface mBaseCaptureListener) {
+    public static String cropVideo(final Context context, final File file, final BaseCaptureInterface mBaseCaptureListener) {
         String croppedUrl = "";
         FFmpeg ffmpeg = FFmpeg.getInstance(context.getApplicationContext());
         try {
-            // execFFmpegCommand("-i " + path.getAbsolutePath() + " -ss " + startMs / 1000 + " -to " + endMs / 1000 + " -strict -2 -async 1 " + dest.getAbsolutePath());
-            //
             croppedUrl = file.getParent() + "/Cropped_" + file.getName();
-            //ffmpeg -i movie.mp4 -vf "crop=640:256:0:400" -threads 5 -preset ultrafast -strict -2 YourCroppedMovie.mp4
-            String[] cmds = new String[]{"-i", file.getAbsolutePath(), "-filter:v", "crop=out_h=in_w", croppedUrl};
-            //String[] cmds = {"-i", file.getAbsolutePath(), "-vf", "crop=640:640:0:400", "-threads", "5", "-preset" ,"ultrafast","-strict","-2",croppedUrl};
+//            String[] cmds = new String[]{"-i", file.getAbsolutePath(), "-filter:v", "crop=out_h=in_w", croppedUrl};
+//            String[] cmds = {"-i", file.getAbsolutePath(), "-vf", "crop=480:480", "-threads", "5", "-preset" ,"ultrafast","-strict","-2",croppedUrl};
+            String[] cmds = {"-i", file.getAbsolutePath(), "-vf", "crop=out_h=in_w", "-threads", "5", "-preset" ,"ultrafast","-strict","-2",croppedUrl};
+
 
             ffmpeg.execute(cmds, new ExecuteBinaryResponseHandler() {
 
@@ -74,18 +74,19 @@ public class VideoCropUtils {
                 @Override
                 public void onFailure(String message) {
                     Log.d(TAG, "cropVideo:onFailure(): " + message);
+                    Toast.makeText(context, "Failed to Crop the video", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onSuccess(String message) {
                     file.delete();
+                    mBaseCaptureListener.videoCropStatus(true);
                     Log.d(TAG, "cropVideo:onSuccess(): " + message);
                 }
 
                 @Override
                 public void onFinish() {
                     Log.d(TAG, "cropVideo:onFinish()");
-                    mBaseCaptureListener.videoCropStatus(true);
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {

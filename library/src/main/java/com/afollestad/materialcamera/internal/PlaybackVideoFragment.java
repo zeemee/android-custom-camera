@@ -65,7 +65,7 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
     public void onResume() {
         super.onResume();
         if (getActivity() != null)
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
