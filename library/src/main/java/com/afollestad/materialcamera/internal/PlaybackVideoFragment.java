@@ -191,6 +191,8 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
     }
 
     public void onPlayVideo(){
-        mPlayer.setSource(Uri.parse(mOutputUri));
+        if(mPlayer != null){
+            mPlayer.setSource(Uri.parse(mOutputUri));
+        }
     }
 }
