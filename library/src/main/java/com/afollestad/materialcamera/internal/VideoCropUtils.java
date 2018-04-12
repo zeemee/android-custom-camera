@@ -1,5 +1,6 @@
 package com.afollestad.materialcamera.internal;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,6 +53,12 @@ public class VideoCropUtils {
     public static String cropVideo(final Context context, final File file, final BaseCaptureInterface mBaseCaptureListener) {
         String croppedUrl = "";
         FFmpeg ffmpeg = FFmpeg.getInstance(context.getApplicationContext());
+
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(null);
+        progressDialog.setCancelable(false);
+
         try {
             croppedUrl = file.getParent() + "/Cropped_" + file.getName();
 //            String[] cmds = new String[]{"-i", file.getAbsolutePath(), "-filter:v", "crop=out_h=in_w", croppedUrl};
@@ -64,17 +71,21 @@ public class VideoCropUtils {
                 @Override
                 public void onStart() {
                     Log.d(TAG, "cropVideo:onStart()");
+                    progressDialog.setMessage("Processing...");
+                    progressDialog.show();
                 }
 
                 @Override
                 public void onProgress(String message) {
                     Log.d(TAG, "cropVideo:onProgress(): " + message);
+                    progressDialog.setMessage("Processing...");
                 }
 
                 @Override
                 public void onFailure(String message) {
                     Log.d(TAG, "cropVideo:onFailure(): " + message);
                     Toast.makeText(context, "Failed to Crop the video", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
 
                 @Override
@@ -87,6 +98,7 @@ public class VideoCropUtils {
                 @Override
                 public void onFinish() {
                     Log.d(TAG, "cropVideo:onFinish()");
+                    progressDialog.dismiss();
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {

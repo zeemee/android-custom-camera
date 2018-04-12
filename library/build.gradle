@@ -47,4 +47,4 @@ dependencies {
     compile 'com.writingminds:FFmpegAndroid:0.3.2'
 }
 
-apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'
+//apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'

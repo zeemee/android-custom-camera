@@ -21,15 +21,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/babs/Documents/Android/android-custom-camera/sample/build/intermediates/exploded-aar/com.afollestad/library/0.4.4/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="24.0.3"
-        sha1="a6313f3449c55a0512be997fc14023a830d05eae">
-        <dex dex="/Users/babs/Documents/Android/android-custom-camera/sample/build/intermediates/pre-dexed/debug/com.afollestad-library-0.4.4_b59514b6a016a3b1b7ad052573bbecdabe4b0f75.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/babs/Documents/Android/android-custom-camera/sample/build/intermediates/exploded-aar/com.afollestad/easyvideoplayer/0.3.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -117,6 +108,15 @@
         revision="24.0.3"
         sha1="26674000177e45447a0326a6ad84612761199a13">
         <dex dex="/Users/babs/Documents/Android/android-custom-camera/sample/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.0.0_61fd58460467559abe0558c70ec3fad1a3d0eae1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/babs/Documents/Android/android-custom-camera/sample/build/intermediates/exploded-aar/android-custom-camera/library/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9e5b277ec22f92a25f242681dfc0ec4231ea4062">
+        <dex dex="/Users/babs/Documents/Android/android-custom-camera/sample/build/intermediates/pre-dexed/debug/android-custom-camera-library-unspecified_3462646784f63ec4a6fbbdbc49125db4193565ef.jar" />
     </item>
     <item
         is-multidex="false"
