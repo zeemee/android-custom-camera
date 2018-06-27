@@ -5,13 +5,21 @@ package com.afollestad.materialcamera.internal;
  */
 
 public class ZeeMeeQuestion {
-    public  static String zeemeeQuestion;
+    private String zeemeeQuestion;
 
-    public static String getZeemeeQuestion() {
+    public ZeeMeeQuestion(){
+
+    }
+
+    public ZeeMeeQuestion(String question){
+        zeemeeQuestion = question;
+    }
+
+    public String getZeemeeQuestion() {
         return zeemeeQuestion;
     }
 
-    public static void setZeemeeQuestion(String zeemeeQuestion) {
-        ZeeMeeQuestion.zeemeeQuestion = zeemeeQuestion;
+    public void setZeemeeQuestion(String zeemeeQuestion) {
+        this.zeemeeQuestion = zeemeeQuestion;
     }
 }

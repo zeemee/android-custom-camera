@@ -13,9 +13,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
+import com.afollestad.materialcamera.internal.ZeeMeeQuestion;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -64,6 +66,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             saveDir.mkdirs();
         }
 
+        ArrayList<ZeeMeeQuestion> questions = new ArrayList<ZeeMeeQuestion>();
+
+        questions.add(new ZeeMeeQuestion("What sport would you like to play today?"));
+        questions.add(new ZeeMeeQuestion("What is your favorite song?"));
+        questions.add(new ZeeMeeQuestion("What's on your mind?"));
+        questions.add(new ZeeMeeQuestion("What is one thing that isn't anywhere else in your college application or resume, but is very important to you?"));
+
+
         MaterialCamera materialCamera = new MaterialCamera(this)
                 .saveDir(saveDir)
                 .showPortraitWarning(false)
@@ -71,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .defaultToFrontFacing(true)
                 .allowRetry(true)
                 .autoSubmit(false)
-                .zeemeeQuestion("What sport would you like to play today?")
+                .zeemeeQuestion(questions)
                 .labelConfirm(R.string.mcam_use_video);
 
         if (view.getId() == R.id.launchCameraStillshot)
