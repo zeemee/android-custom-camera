@@ -81,6 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .defaultToFrontFacing(true)
                 .allowRetry(true)
                 .autoSubmit(false)
+                .iconRearCamera(R.drawable.picture_switch)
+                .iconFrontCamera(R.drawable.picture_switch)
+                .iconRecord(R.drawable.inactive_record_button)
+                .iconStop(R.drawable.record)
                 .zeemeeQuestion(questions)
                 .labelConfirm(R.string.mcam_use_video);
 
