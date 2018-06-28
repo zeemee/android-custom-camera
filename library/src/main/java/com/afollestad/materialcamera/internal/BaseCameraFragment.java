@@ -121,7 +121,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         }
         Drawable d = AppCompatResources.getDrawable(iv.getContext(), res);
         d = DrawableCompat.wrap(d.mutate());
-        DrawableCompat.setTint(d, mIconTextColor);
+        //DrawableCompat.setTint(d, mIconTextColor);
         iv.setImageDrawable(d);
     }
 
