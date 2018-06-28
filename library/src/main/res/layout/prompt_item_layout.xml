@@ -24,7 +24,11 @@
         android:text="@string/zeemee_answer"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:textAllCaps="false"
         android:minHeight="40dip"
+        android:textSize="16dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:textColor="@color/textOrBorderColor"
         android:background="@drawable/clear_border_drawable_button"/>
 

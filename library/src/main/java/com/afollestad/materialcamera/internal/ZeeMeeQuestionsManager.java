@@ -7,13 +7,13 @@ import java.util.ArrayList;
  */
 
 public class ZeeMeeQuestionsManager {
-    public static ArrayList<ZeeMeeQuestion> zeeMeeQuestions;
+    public static ArrayList<PromptQuestion> zeeMeeQuestions;
 
-    public static ArrayList<ZeeMeeQuestion> getZeemeeQuestions() {
+    public static ArrayList<PromptQuestion> getZeemeeQuestions() {
         return zeeMeeQuestions;
     }
 
-    public static void setZeemeeQuestions(ArrayList<ZeeMeeQuestion> zeemeeQuestions) {
+    public static void setZeemeeQuestions(ArrayList<PromptQuestion> zeemeeQuestions) {
         ZeeMeeQuestionsManager.zeeMeeQuestions = zeemeeQuestions;
     }
 }

@@ -25,12 +25,18 @@ public class PromptViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(final ZeeMeeQuestion question){
-        mQuestionText.setText(question.getZeemeeQuestion());
+    public void bind(final PromptQuestion question){
+        mQuestionText.setText(question.getQuestionText());
+        if(!question.getGeneric() && question.getAnswered()){
+            mAnswerBtn.setText("Answer Again");
+        }
+        else{
+            mAnswerBtn.setText("Answer");
+        }
         mAnswerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.onAnswerButtonClicked(question.getZeemeeQuestion());
+                callback.onAnswerButtonClicked(question.getQuestionText());
             }
         });
     }

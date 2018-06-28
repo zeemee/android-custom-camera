@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
-import com.afollestad.materialcamera.internal.ZeeMeeQuestion;
+import com.afollestad.materialcamera.internal.PromptQuestion;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -66,12 +66,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             saveDir.mkdirs();
         }
 
-        ArrayList<ZeeMeeQuestion> questions = new ArrayList<ZeeMeeQuestion>();
+        ArrayList<PromptQuestion> questions = new ArrayList<PromptQuestion>();
+        PromptQuestion one = new PromptQuestion(), two = new PromptQuestion(),
+                       three = new PromptQuestion(), four = new PromptQuestion();
+        one.setQuestionText("What sport would you like to play today?");
+        two.setQuestionText("What is your favorite song?");
+        three.setQuestionText("What's on your mind?");
+        four.setQuestionText("What is one thing that isn't anywhere else in your college application or resume, but is very important to you?");
+        four.setAnswered(true);
 
-        questions.add(new ZeeMeeQuestion("What sport would you like to play today?"));
-        questions.add(new ZeeMeeQuestion("What is your favorite song?"));
-        questions.add(new ZeeMeeQuestion("What's on your mind?"));
-        questions.add(new ZeeMeeQuestion("What is one thing that isn't anywhere else in your college application or resume, but is very important to you?"));
+        questions.add(one);
+        questions.add(two);
+        questions.add(three);
+        questions.add(four);
 
 
         MaterialCamera materialCamera = new MaterialCamera(this)

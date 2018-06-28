@@ -17,7 +17,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 
 import com.afollestad.materialcamera.internal.CameraIntentKey;
-import com.afollestad.materialcamera.internal.ZeeMeeQuestion;
+import com.afollestad.materialcamera.internal.PromptQuestion;
 import com.afollestad.materialcamera.internal.ZeeMeeQuestionsManager;
 import com.afollestad.materialcamera.util.CameraUtil;
 import com.afollestad.materialdialogs.util.DialogUtils;
@@ -204,7 +204,7 @@ public class MaterialCamera {
         return this;
     }
 
-    public MaterialCamera zeemeeQuestion(ArrayList<ZeeMeeQuestion> questions) {
+    public MaterialCamera zeemeeQuestion(ArrayList<PromptQuestion> questions) {
         ZeeMeeQuestionsManager.setZeemeeQuestions(questions);
         return this;
     }

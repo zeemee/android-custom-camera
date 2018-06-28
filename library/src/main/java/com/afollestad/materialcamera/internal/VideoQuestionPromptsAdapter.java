@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class VideoQuestionPromptsAdapter extends RecyclerView.Adapter<PromptViewHolder>{
 
-    private ArrayList<ZeeMeeQuestion> questions = new ArrayList<ZeeMeeQuestion>();
+    private ArrayList<PromptQuestion> questions = new ArrayList<PromptQuestion>();
     private Context mContext;
     private PromptAnswerCallback callback;
 
@@ -21,7 +21,7 @@ public class VideoQuestionPromptsAdapter extends RecyclerView.Adapter<PromptView
         this.callback = pCallback;
     }
 
-    public void addItems(ArrayList<ZeeMeeQuestion> list){
+    public void addItems(ArrayList<PromptQuestion> list){
         questions.clear();
         questions.addAll(list);
         notifyDataSetChanged();
@@ -35,7 +35,7 @@ public class VideoQuestionPromptsAdapter extends RecyclerView.Adapter<PromptView
 
     @Override
     public void onBindViewHolder(PromptViewHolder holder, int position) {
-        ZeeMeeQuestion question = questions.get(position);
+        PromptQuestion question = questions.get(position);
         holder.bind(question);
     }
 
