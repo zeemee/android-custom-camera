@@ -375,7 +375,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
                     public void onInfo(MediaRecorder mediaRecorder, int what, int extra) {
                         if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) {
                             Toast.makeText(getActivity(), R.string.mcam_file_size_limit_reached, Toast.LENGTH_SHORT).show();
-                            stopRecordingVideo(false);
+                            stopRecordingVideo(false, -1);
                         }
                     }
                 });
@@ -435,7 +435,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             } catch (Throwable t) {
                 t.printStackTrace();
                 mInterface.setRecordingStart(-1);
-                stopRecordingVideo(false);
+                stopRecordingVideo(false, -1);
                 throwError(new Exception("Failed to start recording: " + t.getMessage(), t));
             }
         }
@@ -443,8 +443,8 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
     }
 
     @Override
-    public void stopRecordingVideo(final boolean reachedZero) {
-        super.stopRecordingVideo(reachedZero);
+    public void stopRecordingVideo(final boolean reachedZero, final int pVideoId) {
+        super.stopRecordingVideo(reachedZero, pVideoId);
 
         if (mInterface.hasLengthLimit() && mInterface.shouldAutoSubmit() &&
                 (mInterface.getRecordingStart() < 0 || mMediaRecorder == null)) {
@@ -461,7 +461,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             mButtonFacing.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mInterface.onShowPreview(mOutputUri, reachedZero);
+                    mInterface.onShowPreview(mOutputUri, reachedZero, pVideoId);
                 }
             }, 100);
             return;
@@ -479,7 +479,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
         if (!CameraUtil.isChromium())
             mButtonFacing.setVisibility(View.VISIBLE);
         if (mInterface.getRecordingStart() > -1 && getActivity() != null)
-            mInterface.onShowPreview(mOutputUri, reachedZero);
+            mInterface.onShowPreview(mOutputUri, reachedZero, pVideoId);
 
         stopCounter();
     }

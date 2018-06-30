@@ -36,7 +36,7 @@ public class PromptViewHolder extends RecyclerView.ViewHolder {
         mAnswerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.onAnswerButtonClicked(question.getQuestionText());
+                callback.onAnswerButtonClicked(question.getQuestionText(), question.getDbId());
             }
         });
     }

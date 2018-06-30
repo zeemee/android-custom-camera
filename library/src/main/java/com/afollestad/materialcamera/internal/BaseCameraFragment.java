@@ -69,6 +69,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     protected VideoQuestionPromptsAdapter mAdapter;
     protected RelativeLayout mControlsRelative, mPromptRelative, mTopPromptRelative;
 
+    public static int videoId = -1;
+
     protected final int ANIMATION_DURATION = 400;
     protected boolean inSelectAPromptMode = true;
 
@@ -94,7 +96,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             final long now = System.currentTimeMillis();
             if (mRecordEnd != -1) {
                 if (now >= mRecordEnd) {
-                    stopRecordingVideo(true);
+                    stopRecordingVideo(true, videoId);
                 } else {
                     final long diff = mRecordEnd - now;
                     mRecordDuration.setText(String.format("-%s", CameraUtil.getDurationString(diff)));
@@ -166,7 +168,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         mPromptRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL, false));
         mAdapter = new VideoQuestionPromptsAdapter(getActivity(), new PromptAnswerCallback() {
             @Override
-            public void onAnswerButtonClicked(String question) {
+            public void onAnswerButtonClicked(String question, int dbId) {
+                videoId = dbId;
                 onPromptSelected(question);
             }
         });
@@ -493,7 +496,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         return true;
     }
 
-    public void stopRecordingVideo(boolean reachedZero) {
+    public void stopRecordingVideo(boolean reachedZero, int videoId) {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
@@ -528,7 +531,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             setupFlashMode();
         } else if (id == R.id.video) {
             if (mIsRecording) {
-                stopRecordingVideo(false);
+                stopRecordingVideo(false, videoId);
                 mIsRecording = false;
             } else {
                 if (getArguments().getBoolean(CameraIntentKey.SHOW_PORTRAIT_WARNING, true) &&

@@ -22,6 +22,8 @@ import com.afollestad.materialcamera.internal.ZeeMeeQuestionsManager;
 import com.afollestad.materialcamera.util.CameraUtil;
 import com.afollestad.materialdialogs.util.DialogUtils;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -204,7 +206,8 @@ public class MaterialCamera {
         return this;
     }
 
-    public MaterialCamera zeemeeQuestion(ArrayList<PromptQuestion> questions) {
+    public MaterialCamera videoQuestions(JSONObject jsonObject) {
+        ArrayList<PromptQuestion> questions = PromptQuestion.parse(jsonObject);
         ZeeMeeQuestionsManager.setZeemeeQuestions(questions);
         return this;
     }
