@@ -306,7 +306,8 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
 
     private void showInitialRecorder() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, createFragment())
+                .add(R.id.container, createFragment())
+                .addToBackStack(createFragment().getClass().getName())
                 .commit();
     }
 
@@ -322,9 +323,8 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
             finish();
             return;
         }
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, createFragment())
-                .commit();
+        getFragmentManager().popBackStack();
+        getFragment().onResume();
     }
 
     @Override
@@ -354,7 +354,8 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         mPlaybackVideoFragment = PlaybackVideoFragment.newInstance(croppedUrl, allowRetry(),
                 getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0), videoId);
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, mPlaybackVideoFragment)
+                .add(R.id.container, mPlaybackVideoFragment)
+                .addToBackStack(mPlaybackVideoFragment.getClass().getName())
                 .commit();
     }
 

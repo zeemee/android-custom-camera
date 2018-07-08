@@ -70,6 +70,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     protected RelativeLayout mControlsRelative, mPromptRelative, mTopPromptRelative;
 
     public static int videoId = -1;
+    public String promptString = null;
 
     protected final int ANIMATION_DURATION = 400;
     protected boolean inSelectAPromptMode = true;
@@ -217,15 +218,20 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             mInterface.setDidRecord(false);
         }
 
-        if (savedInstanceState != null)
-            mOutputUri = savedInstanceState.getString("output_uri");
-
         if (mInterface.useStillshot()) {
             mButtonVideo.setVisibility(View.GONE);
             mRecordDuration.setVisibility(View.GONE);
             mButtonStillshot.setVisibility(View.VISIBLE);
             setImageRes(mButtonStillshot, mInterface.iconStillshot());
             mButtonFlash.setVisibility(View.VISIBLE);
+        }
+
+        if (savedInstanceState != null) {
+            openCamera();
+            mOutputUri = savedInstanceState.getString("output_uri");
+            promptString = savedInstanceState.getString("prompt");
+            videoId = savedInstanceState.getInt("video_id");
+            onPromptSelected(promptString);
         }
 
         if (mInterface.autoRecordDelay() < 1000) {
@@ -251,6 +257,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
     private void onPromptSelected(String prompt){
         mZeeMeeQuestion.setText(prompt);
+        promptString = prompt;
         mPromptText.setAlpha(0f);
         mPromptText.setVisibility(View.VISIBLE);
         mPromptText.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
@@ -383,6 +390,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     @Override
     public void onResume() {
         super.onResume();
+        openCamera();
         if (mInterface != null && mInterface.hasLengthLimit()) {
             if (mInterface.countdownImmediately() || mInterface.getRecordingStart() > -1) {
                 if (mInterface.getRecordingStart() == -1)
@@ -504,6 +512,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     public final void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("output_uri", mOutputUri);
+        outState.putString("prompt", promptString);
+        outState.putInt("video_id",videoId);
     }
 
     @Override
@@ -588,4 +598,12 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
         setImageRes(mButtonFlash, res);
     }
+
+    @Override
+    public void onStop() {
+        onSaveInstanceState(getArguments());
+        super.onStop();
+    }
+
+
 }

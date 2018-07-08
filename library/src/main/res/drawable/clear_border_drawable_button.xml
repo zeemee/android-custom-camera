@@ -6,6 +6,9 @@
 
                 <solid android:color="@android:color/transparent" />
 
+                <padding android:left="12dp"/>
+                <padding android:right="12dp"/>
+
                 <corners
                     android:bottomLeftRadius="24dp"
                     android:bottomRightRadius="24dp"

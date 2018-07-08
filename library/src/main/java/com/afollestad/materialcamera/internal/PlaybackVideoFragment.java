@@ -184,7 +184,7 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
     @Override
     public void onRetry(EasyVideoPlayer player, Uri source) {
         if (mInterface != null)
-            mInterface.onRetry(mOutputUri);
+            getActivity().onBackPressed();
     }
 
     @Override

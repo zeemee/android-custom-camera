@@ -8,9 +8,14 @@ import com.afollestad.materialcamera.internal.CameraFragment;
 
 public class CaptureActivity extends BaseCaptureActivity {
 
+    static CameraFragment fragmentInstance;
+
     @Override
     @NonNull
     public Fragment getFragment() {
-        return CameraFragment.newInstance();
+        if (fragmentInstance == null){
+            fragmentInstance = CameraFragment.newInstance();
+        }
+        return fragmentInstance;
     }
 }
