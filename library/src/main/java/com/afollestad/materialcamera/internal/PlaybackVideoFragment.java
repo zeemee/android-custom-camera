@@ -25,6 +25,7 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
     private EasyVideoPlayer mPlayer;
     private String mOutputUri;
     private BaseCaptureInterface mInterface;
+    static int videoId = 0;
 
     private Handler mCountdownHandler;
     private final Runnable mCountdownRunnable = new Runnable() {
@@ -33,7 +34,7 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
             if (mPlayer != null) {
                 long diff = mInterface.getRecordingEnd() - System.currentTimeMillis();
                 if (diff <= 0) {
-                    useVideo();
+                    useVideo(videoId);
                     return;
                 }
                 mPlayer.setBottomLabelText(String.format("-%s", CameraUtil.getDurationString(diff)));
@@ -50,10 +51,11 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
         mInterface = (BaseCaptureInterface) activity;
     }
 
-    public static PlaybackVideoFragment newInstance(String outputUri, boolean allowRetry, int primaryColor) {
+    public static PlaybackVideoFragment newInstance(String outputUri, boolean allowRetry, int primaryColor, int pVideoId) {
         PlaybackVideoFragment fragment = new PlaybackVideoFragment();
         fragment.setRetainInstance(true);
         Bundle args = new Bundle();
+        videoId = pVideoId;
         args.putString("output_uri", outputUri);
         args.putBoolean(CameraIntentKey.ALLOW_RETRY, allowRetry);
         args.putInt(CameraIntentKey.PRIMARY_COLOR, primaryColor);
@@ -132,13 +134,13 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
         }
     }
 
-    private void useVideo() {
+    private void useVideo(int videoId) {
         if (mPlayer != null) {
             mPlayer.release();
             mPlayer = null;
         }
         if (mInterface != null)
-            mInterface.useMedia(mOutputUri);
+            mInterface.useMedia(mOutputUri, videoId);
     }
 
     @Override
@@ -182,12 +184,12 @@ public class PlaybackVideoFragment extends Fragment implements CameraUriInterfac
     @Override
     public void onRetry(EasyVideoPlayer player, Uri source) {
         if (mInterface != null)
-            mInterface.onRetry(mOutputUri);
+            getActivity().onBackPressed();
     }
 
     @Override
     public void onSubmit(EasyVideoPlayer player, Uri source) {
-        useVideo();
+        useVideo(videoId);
     }
 
     public void onPlayVideo(){

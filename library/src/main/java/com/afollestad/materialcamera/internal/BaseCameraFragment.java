@@ -1,5 +1,8 @@
 package com.afollestad.materialcamera.internal;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
@@ -17,9 +20,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.content.res.AppCompatResources;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -27,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialcamera.CaptureActivity;
 import com.afollestad.materialcamera.MaterialCamera;
 import com.afollestad.materialcamera.R;
 import com.afollestad.materialcamera.util.CameraUtil;
@@ -47,6 +55,7 @@ import static com.afollestad.materialcamera.internal.BaseCaptureActivity.FLASH_M
  */
 abstract class BaseCameraFragment extends Fragment implements CameraUriInterface, View.OnClickListener {
 
+    protected ImageButton mButtonClose;
     protected ImageButton mButtonVideo;
     protected ImageButton mButtonStillshot;
     protected ImageButton mButtonFacing;
@@ -54,6 +63,17 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     protected TextView mRecordDuration;
     protected TextView mDelayStartCountdown;
     protected TextView mZeeMeeQuestion;
+    protected TextView mPromptText;
+    protected TextView mPickPromptText;
+    protected RecyclerView mPromptRecyclerView;
+    protected VideoQuestionPromptsAdapter mAdapter;
+    protected RelativeLayout mControlsRelative, mPromptRelative, mTopPromptRelative;
+
+    public static int videoId = -1;
+    public String promptString = null;
+
+    protected final int ANIMATION_DURATION = 400;
+    protected boolean inSelectAPromptMode = true;
 
     private boolean mIsRecording;
     protected String mOutputUri;
@@ -77,7 +97,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             final long now = System.currentTimeMillis();
             if (mRecordEnd != -1) {
                 if (now >= mRecordEnd) {
-                    stopRecordingVideo(true);
+                    stopRecordingVideo(true, videoId);
                 } else {
                     final long diff = mRecordEnd - now;
                     mRecordDuration.setText(String.format("-%s", CameraUtil.getDurationString(diff)));
@@ -104,7 +124,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         }
         Drawable d = AppCompatResources.getDrawable(iv.getContext(), res);
         d = DrawableCompat.wrap(d.mutate());
-        DrawableCompat.setTint(d, mIconTextColor);
+        //DrawableCompat.setTint(d, mIconTextColor);
         iv.setImageDrawable(d);
     }
 
@@ -113,15 +133,49 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mButtonClose = (ImageButton) view.findViewById(R.id.btnClose);
         mDelayStartCountdown = (TextView) view.findViewById(R.id.delayStartCountdown);
         mButtonVideo = (ImageButton) view.findViewById(R.id.video);
         mButtonStillshot = (ImageButton) view.findViewById(R.id.stillshot);
         mRecordDuration = (TextView) view.findViewById(R.id.recordDuration);
+        mPickPromptText = (TextView) view.findViewById(R.id.tvPromptText);
+        mPromptText = (TextView) view.findViewById(R.id.tvPrompt);
         mButtonFacing = (ImageButton) view.findViewById(R.id.facing);
+        mPromptRecyclerView = (RecyclerView) view.findViewById(R.id.rvPrompts);
+        mControlsRelative = (RelativeLayout) view.findViewById(R.id.controlsFrame);
+        mPromptRelative = (RelativeLayout) view.findViewById(R.id.promptFrame);
+        mTopPromptRelative = (RelativeLayout) view.findViewById(R.id.rlZeeMeeQuestion);
+
+        System.out.println("DENSITY - " + getResources().getDisplayMetrics().density);
+
+        //Set up Toolbar
+        mButtonClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(inSelectAPromptMode) {
+                    ((CaptureActivity) getActivity()).onBackPressed();
+                }
+                else{
+                    onCloseClicked();
+                }
+            }
+        });
+
 
         // Display the question
         mZeeMeeQuestion = (TextView) view.findViewById(R.id.etZeeMeeQuestion);
-        mZeeMeeQuestion.setText(ZeeMeeQuestion.getZeemeeQuestion());
+        //mZeeMeeQuestion.setText(ZeeMeeQuestion.getZeemeeQuestion());
+
+        mPromptRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL, false));
+        mAdapter = new VideoQuestionPromptsAdapter(getActivity(), new PromptAnswerCallback() {
+            @Override
+            public void onAnswerButtonClicked(String question, int dbId) {
+                videoId = dbId;
+                onPromptSelected(question);
+            }
+        });
+        mAdapter.addItems(ZeeMeeQuestionsManager.getZeemeeQuestions());
+        mPromptRecyclerView.setAdapter(mAdapter);
 
         //Set the height for Relative Layout displaying video question
         RelativeLayout questionsRelativelayout = (RelativeLayout) view.findViewById(R.id.rlZeeMeeQuestion);
@@ -164,15 +218,20 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             mInterface.setDidRecord(false);
         }
 
-        if (savedInstanceState != null)
-            mOutputUri = savedInstanceState.getString("output_uri");
-
         if (mInterface.useStillshot()) {
             mButtonVideo.setVisibility(View.GONE);
             mRecordDuration.setVisibility(View.GONE);
             mButtonStillshot.setVisibility(View.VISIBLE);
             setImageRes(mButtonStillshot, mInterface.iconStillshot());
             mButtonFlash.setVisibility(View.VISIBLE);
+        }
+
+        if (savedInstanceState != null) {
+            openCamera();
+            mOutputUri = savedInstanceState.getString("output_uri");
+            promptString = savedInstanceState.getString("prompt");
+            videoId = savedInstanceState.getInt("video_id");
+            onPromptSelected(promptString);
         }
 
         if (mInterface.autoRecordDelay() < 1000) {
@@ -193,7 +252,54 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             newHeight = (height - width) / 2;
         }
 
-        return newHeight ;
+        return newHeight;
+    }
+
+    private void onPromptSelected(String prompt){
+        mZeeMeeQuestion.setText(prompt);
+        promptString = prompt;
+        mPromptText.setAlpha(0f);
+        mPromptText.setVisibility(View.VISIBLE);
+        mPromptText.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+        mZeeMeeQuestion.setAlpha(0f);
+        mZeeMeeQuestion.setVisibility(View.VISIBLE);
+        mZeeMeeQuestion.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+        mPromptRelative.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mPromptRelative.setVisibility(View.GONE);
+            }
+        });
+        mControlsRelative.setAlpha(0f);
+        mControlsRelative.setVisibility(View.VISIBLE);
+        mControlsRelative.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+        inSelectAPromptMode = false;
+    }
+
+    private void onCloseClicked(){
+        mPromptText.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mPromptText.setVisibility(View.GONE);
+            }
+        });
+        mZeeMeeQuestion.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mZeeMeeQuestion.setVisibility(View.GONE);
+            }
+        });
+        mPromptRelative.setAlpha(0f);
+        mPromptRelative.setVisibility(View.VISIBLE);
+        mPromptRelative.animate().alpha(1f).setDuration(ANIMATION_DURATION).setListener(null);
+        mControlsRelative.animate().alpha(0f).setDuration(ANIMATION_DURATION).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mControlsRelative.setVisibility(View.GONE);
+            }
+        });
+
+        inSelectAPromptMode = true;
     }
 
     protected void onFlashModesLoaded() {
@@ -261,6 +367,14 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
                 mDelayHandler.postDelayed(this, 1000);
             }
         }, 1000);
+    }
+
+    private ObjectAnimator createFadeAnimation(View v, String propertyName){
+        ObjectAnimator animator = new ObjectAnimator();
+        animator.setDuration(200);
+        animator.setPropertyName(propertyName);
+        animator.setTarget(v);
+        return animator;
     }
 
     @Override
@@ -389,7 +503,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         return true;
     }
 
-    public void stopRecordingVideo(boolean reachedZero) {
+    public void stopRecordingVideo(boolean reachedZero, int videoId) {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
@@ -397,6 +511,8 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     public final void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("output_uri", mOutputUri);
+        outState.putString("prompt", promptString);
+        outState.putInt("video_id",videoId);
     }
 
     @Override
@@ -424,7 +540,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             setupFlashMode();
         } else if (id == R.id.video) {
             if (mIsRecording) {
-                stopRecordingVideo(false);
+                stopRecordingVideo(false, videoId);
                 mIsRecording = false;
             } else {
                 if (getArguments().getBoolean(CameraIntentKey.SHOW_PORTRAIT_WARNING, true) &&
@@ -481,4 +597,12 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
 
         setImageRes(mButtonFlash, res);
     }
+
+    @Override
+    public void onStop() {
+        onSaveInstanceState(getArguments());
+        super.onStop();
+    }
+
+
 }

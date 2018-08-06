@@ -13,7 +13,7 @@ public interface BaseCaptureInterface {
 
     void onRetry(@Nullable String outputUri);
 
-    void onShowPreview(@Nullable String outputUri, boolean countdownIsAtZero);
+    void onShowPreview(@Nullable String outputUri, boolean countdownIsAtZero, int videoId);
 
     void onShowStillshot(String outputUri);
 
@@ -48,7 +48,7 @@ public interface BaseCaptureInterface {
 
     Object getBackCamera();
 
-    void useMedia(String uri);
+    void useMedia(String uri, int mediaId);
 
     boolean shouldAutoSubmit();
 

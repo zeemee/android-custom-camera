@@ -5,70 +5,119 @@
     android:id="@+id/rootFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foreground="?selectableItemBackground">
+    android:background="@android:color/black">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignTop="@+id/cameraPreview"
-        android:gravity="center"
         android:id="@+id/rlZeeMeeQuestion"
-        android:background="@color/mcam_color_dark">
+        android:background="@android:color/black">
 
-        <ImageView
-            android:id="@+id/ivZeeMeeQuestion"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/zeemee" />
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_close"
+            android:background="@android:color/black"
+            android:layout_gravity="top|left" />
+
+        <TextView
+            android:id="@+id/tvPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:textSize="12sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="28dp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/textOrBorderColor"
+            android:background="@drawable/clear_border_drawable_text"
+            android:text="@string/zeemee_prompt"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:id="@+id/etZeeMeeQuestion"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/ivZeeMeeQuestion"
-            android:layout_toRightOf="@+id/ivZeeMeeQuestion"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/textOrBorderColor"
+            android:layout_below="@+id/tvPrompt"
             android:textAlignment="center"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
 
     <com.afollestad.materialcamera.internal.AutoFitTextureView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:layout_above="@+id/controlsFrame"
-        android:id="@+id/cameraPreview"
-        android:layout_centerInParent="true"/>
+        android:id="@+id/cameraPreview"/>
+
+    <RelativeLayout
+        android:id="@+id/promptFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:clipToPadding="false"
+        android:background="@drawable/gradient_background"
+        android:elevation="@dimen/mcam_toolbar_elevation"
+        android:paddingTop="100dp"
+        android:paddingLeft="12dp"
+        tools:ignore="UnusedAttribute">
+
+        <TextView
+            android:id="@+id/tvPromptText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/select_a_prompt"
+            android:textColor="@color/textOrBorderColor"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:paddingBottom="12dp"
+            android:paddingLeft="4dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvPrompts"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/tvPromptText"
+            android:clipToPadding="false"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/controlsFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?colorPrimaryDark"
+        android:background="@color/colorControl"
         android:elevation="@dimen/mcam_toolbar_elevation"
-        android:paddingBottom="@dimen/mcam_content_inset_less"
         android:paddingLeft="@dimen/mcam_content_inset"
         android:paddingRight="@dimen/mcam_content_inset"
-        android:paddingTop="@dimen/mcam_content_inset_less"
+        android:visibility="gone"
         tools:ignore="UnusedAttribute">
 
         <ImageButton
             android:id="@+id/facing"
-            android:layout_width="@dimen/mcam_action_icon_size_smaller"
-            android:layout_height="@dimen/mcam_action_icon_size_smaller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:background="@drawable/mcam_circle_selector"
-            android:padding="@dimen/mcam_content_inset_less"
-            android:scaleType="fitXY"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/mcam_camera_front" />
+            tools:src="@drawable/picture_switch" />
 
         <ImageButton
             android:id="@+id/flash"
@@ -86,15 +135,14 @@
 
         <ImageButton
             android:id="@+id/video"
-            android:layout_width="@dimen/mcam_action_icon_size"
-            android:layout_height="@dimen/mcam_action_icon_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:background="@drawable/mcam_circle_selector"
             android:padding="@dimen/mcam_content_inset_less"
-            android:scaleType="fitXY"
             tools:ignore="ContentDescription"
-            tools:src="@drawable/mcam_action_capture" />
+            tools:src="@drawable/inactive_record_button" />
 
         <ImageButton
             android:id="@+id/stillshot"
@@ -118,10 +166,11 @@
             android:layout_centerVertical="true"
             android:fontFamily="sans-serif-medium"
             android:text="@string/mcam_defaultDuration"
-            android:textColor="#fff"
+            android:textColor="#ffff"
             android:textSize="@dimen/mcam_regular_content_fontsize" />
 
     </RelativeLayout>
+
 
     <TextView
         android:id="@+id/delayStartCountdown"

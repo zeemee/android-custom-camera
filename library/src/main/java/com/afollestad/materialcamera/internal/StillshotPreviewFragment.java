@@ -97,6 +97,6 @@ public class StillshotPreviewFragment extends BaseGalleryFragment {
         if (v.getId() == R.id.retry)
             mInterface.onRetry(mOutputUri);
         else if (v.getId() == R.id.confirm)
-            mInterface.useMedia(mOutputUri);
+            mInterface.useMedia(mOutputUri, -1);
     }
 }

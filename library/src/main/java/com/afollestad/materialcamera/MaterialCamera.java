@@ -17,13 +17,17 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 
 import com.afollestad.materialcamera.internal.CameraIntentKey;
-import com.afollestad.materialcamera.internal.ZeeMeeQuestion;
+import com.afollestad.materialcamera.internal.PromptQuestion;
+import com.afollestad.materialcamera.internal.ZeeMeeQuestionsManager;
 import com.afollestad.materialcamera.util.CameraUtil;
 import com.afollestad.materialdialogs.util.DialogUtils;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -202,8 +206,9 @@ public class MaterialCamera {
         return this;
     }
 
-    public MaterialCamera zeemeeQuestion(String question) {
-        ZeeMeeQuestion.setZeemeeQuestion(question);
+    public MaterialCamera videoQuestions(JSONObject jsonObject) {
+        ArrayList<PromptQuestion> questions = PromptQuestion.parse(jsonObject);
+        ZeeMeeQuestionsManager.setZeemeeQuestions(questions);
         return this;
     }
 

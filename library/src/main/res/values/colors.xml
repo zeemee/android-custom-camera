@@ -3,5 +3,6 @@
 
     <color name="mcam_color_light">#FAFAFA</color>
     <color name="mcam_color_dark">#424242</color>
-
+    <color name="colorControl">#000000</color>
+    <color name="textOrBorderColor">#FFFFFF</color>
 </resources>

@@ -306,7 +306,8 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
 
     private void showInitialRecorder() {
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, createFragment())
+                .add(R.id.container, createFragment())
+                .addToBackStack(createFragment().getClass().getName())
                 .commit();
     }
 
@@ -322,13 +323,12 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
             finish();
             return;
         }
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, createFragment())
-                .commit();
+        getFragmentManager().popBackStack();
+        getFragment().onResume();
     }
 
     @Override
-    public final void onShowPreview(@Nullable final String outputUri, boolean countdownIsAtZero) {
+    public final void onShowPreview(@Nullable final String outputUri, boolean countdownIsAtZero, int videoId) {
         if ((shouldAutoSubmit() && (countdownIsAtZero || !allowRetry() || !hasLengthLimit())) || outputUri == null) {
             if (outputUri == null) {
                 setResult(RESULT_CANCELED, new Intent().putExtra(MaterialCamera.ERROR_EXTRA,
@@ -336,32 +336,33 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                 finish();
                 return;
             }
-            useMedia(outputUri);
+            useMedia(outputUri, videoId);
         } else {
             if (!hasLengthLimit() || !continueTimerInPlayback()) {
                 // No countdown or countdown should not continue through playback, reset timer to 0
                 setRecordingStart(-1);
             }
-            squareCropVideo(outputUri);
+            squareCropVideo(outputUri,videoId);
         }
     }
 
-    private void squareCropVideo(@Nullable String videoUri) {
+    private void squareCropVideo(@Nullable String videoUri, int videoId) {
         File inputFile = new File(Uri.parse(videoUri).getPath());
 
         croppedUrl = VideoCropUtils.cropVideo(this, inputFile, this);
 
         mPlaybackVideoFragment = PlaybackVideoFragment.newInstance(croppedUrl, allowRetry(),
-                getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
+                getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0), videoId);
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, mPlaybackVideoFragment)
+                .add(R.id.container, mPlaybackVideoFragment)
+                .addToBackStack(mPlaybackVideoFragment.getClass().getName())
                 .commit();
     }
 
     @Override
     public void onShowStillshot(String outputUri) {
         if (shouldAutoSubmit()) {
-            useMedia(outputUri);
+            useMedia(outputUri,0);
         } else {
             Fragment frag = StillshotPreviewFragment.newInstance(outputUri, allowRetry(),
                     getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
@@ -413,11 +414,13 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         }
     }
 
+    //ToDo: this is where you can pass in the id
     @Override
-    public final void useMedia(String uri) {
+    public final void useMedia(String uri, int videoId) {
         if (uri != null) {
             setResult(Activity.RESULT_OK, getIntent()
                     .putExtra(MaterialCamera.STATUS_EXTRA, MaterialCamera.STATUS_RECORDED)
+                    .putExtra("video_id", videoId)
                     .setDataAndType(Uri.parse(uri), useStillshot() ? "image/jpeg" : "video/mp4"));
         }
         finish();

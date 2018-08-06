@@ -17,4 +17,7 @@
     <string name="mcam_image_preview_error_message">Could not decode bitmap</string>
     <string name="zeemee_question">Question: What is the coolest skill you got?</string>
 
+    <string name="zeemee_prompt">Prompt</string>
+    <string name="zeemee_answer">Answer</string>
+    <string name="select_a_prompt">Pick a prompt to answer</string>
 </resources>
