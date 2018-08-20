@@ -155,6 +155,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
         try {
             final int mBackCameraId = mInterface.getBackCamera() != null ? (Integer) mInterface.getBackCamera() : -1;
             final int mFrontCameraId = mInterface.getFrontCamera() != null ? (Integer) mInterface.getFrontCamera() : -1;
+            mButtonVideo.setEnabled(true);
             if (mBackCameraId == -1 || mFrontCameraId == -1) {
                 int numberOfCameras = Camera.getNumberOfCameras();
                 if (numberOfCameras == 0) {
@@ -397,6 +398,9 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             } catch (IllegalStateException e) {
                 throwError(new Exception("Failed to re-lock camera: " + e.getMessage(), e));
                 return false;
+            } catch (NullPointerException e) {
+                throwError(new Exception("Failed to re-lock camera: " + e.getMessage(), e));
+                return false;
             }
             t.printStackTrace();
             throwError(new Exception("Failed to begin recording: " + t.getMessage(), t));
@@ -475,6 +479,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
         if (!mInterface.didRecord())
             mOutputUri = null;
 
+        mButtonVideo.setEnabled(false);
         setImageRes(mButtonVideo, mInterface.iconRecord());
         if (!CameraUtil.isChromium())
             mButtonFacing.setVisibility(View.VISIBLE);
