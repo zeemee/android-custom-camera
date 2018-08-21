@@ -98,7 +98,11 @@ public class VideoCropUtils {
                 @Override
                 public void onFinish() {
                     Log.d(TAG, "cropVideo:onFinish()");
-                    progressDialog.dismiss();
+                    try{
+                        progressDialog.dismiss();
+                    }catch(IllegalArgumentException e){
+                        Log.d(TAG, "progress dialog not found");
+                    }
                 }
             });
         } catch (FFmpegCommandAlreadyRunningException e) {
