@@ -836,7 +836,7 @@ public class Camera2Fragment extends BaseCameraFragment implements View.OnClickL
                 public void onInfo(MediaRecorder mediaRecorder, int what, int extra) {
                     if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) {
                         Toast.makeText(getActivity(), R.string.mcam_file_size_limit_reached, Toast.LENGTH_SHORT).show();
-                        stopRecordingVideo(false, -1);
+                        stopRecordingVideo(false, -1, "");
                     }
                 }
             });
@@ -883,21 +883,21 @@ public class Camera2Fragment extends BaseCameraFragment implements View.OnClickL
         } catch (Throwable t) {
             t.printStackTrace();
             mInterface.setRecordingStart(-1);
-            stopRecordingVideo(false,-1);
+            stopRecordingVideo(false,-1, "");
             throwError(new Exception("Failed to start recording: " + t.getMessage(), t));
         }
         return false;
     }
 
     @Override
-    public void stopRecordingVideo(boolean reachedZero, int pVideoId) {
-        super.stopRecordingVideo(reachedZero, pVideoId);
+    public void stopRecordingVideo(boolean reachedZero, int pVideoId, String pPrompt) {
+        super.stopRecordingVideo(reachedZero, pVideoId, pPrompt);
 
         if (mInterface.hasLengthLimit() && mInterface.shouldAutoSubmit() &&
                 (mInterface.getRecordingStart() < 0 || mMediaRecorder == null)) {
             stopCounter();
             releaseRecorder();
-            mInterface.onShowPreview(mOutputUri, reachedZero, pVideoId);
+            mInterface.onShowPreview(mOutputUri, reachedZero, pVideoId, pPrompt);
             return;
         }
 
@@ -909,7 +909,7 @@ public class Camera2Fragment extends BaseCameraFragment implements View.OnClickL
         if (!CameraUtil.isChromium())
             mButtonFacing.setVisibility(View.VISIBLE);
         if (mInterface.getRecordingStart() > -1 && getActivity() != null)
-            mInterface.onShowPreview(mOutputUri, reachedZero, pVideoId);
+            mInterface.onShowPreview(mOutputUri, reachedZero, pVideoId, pPrompt);
 
         stopCounter();
     }
