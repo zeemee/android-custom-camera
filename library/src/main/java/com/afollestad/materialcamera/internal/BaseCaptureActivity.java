@@ -328,7 +328,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     }
 
     @Override
-    public final void onShowPreview(@Nullable final String outputUri, boolean countdownIsAtZero, int videoId) {
+    public final void onShowPreview(@Nullable final String outputUri, boolean countdownIsAtZero, int videoId, String prompt) {
         if ((shouldAutoSubmit() && (countdownIsAtZero || !allowRetry() || !hasLengthLimit())) || outputUri == null) {
             if (outputUri == null) {
                 setResult(RESULT_CANCELED, new Intent().putExtra(MaterialCamera.ERROR_EXTRA,
@@ -336,23 +336,23 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                 finish();
                 return;
             }
-            useMedia(outputUri, videoId);
+            useMedia(outputUri, videoId, prompt);
         } else {
             if (!hasLengthLimit() || !continueTimerInPlayback()) {
                 // No countdown or countdown should not continue through playback, reset timer to 0
                 setRecordingStart(-1);
             }
-            squareCropVideo(outputUri,videoId);
+            squareCropVideo(outputUri,videoId, prompt);
         }
     }
 
-    private void squareCropVideo(@Nullable String videoUri, int videoId) {
+    private void squareCropVideo(@Nullable String videoUri, int videoId, String prompt) {
         File inputFile = new File(Uri.parse(videoUri).getPath());
 
         croppedUrl = VideoCropUtils.cropVideo(this, inputFile, this);
 
         mPlaybackVideoFragment = PlaybackVideoFragment.newInstance(croppedUrl, allowRetry(),
-                getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0), videoId);
+                getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0), videoId, prompt);
         getFragmentManager().beginTransaction()
                 .add(R.id.container, mPlaybackVideoFragment)
                 .addToBackStack(mPlaybackVideoFragment.getClass().getName())
@@ -362,7 +362,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     @Override
     public void onShowStillshot(String outputUri) {
         if (shouldAutoSubmit()) {
-            useMedia(outputUri,0);
+            useMedia(outputUri,0, "");
         } else {
             Fragment frag = StillshotPreviewFragment.newInstance(outputUri, allowRetry(),
                     getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
@@ -416,11 +416,12 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
 
     //ToDo: this is where you can pass in the id
     @Override
-    public final void useMedia(String uri, int videoId) {
+    public final void useMedia(String uri, int videoId, String prompt) {
         if (uri != null) {
             setResult(Activity.RESULT_OK, getIntent()
                     .putExtra(MaterialCamera.STATUS_EXTRA, MaterialCamera.STATUS_RECORDED)
                     .putExtra("video_id", videoId)
+                    .putExtra("prompt", prompt)
                     .setDataAndType(Uri.parse(uri), useStillshot() ? "image/jpeg" : "video/mp4"));
         }
         finish();

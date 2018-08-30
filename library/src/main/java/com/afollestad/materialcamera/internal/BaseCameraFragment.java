@@ -97,7 +97,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             final long now = System.currentTimeMillis();
             if (mRecordEnd != -1) {
                 if (now >= mRecordEnd) {
-                    stopRecordingVideo(true, videoId);
+                    stopRecordingVideo(true, videoId, promptString);
                 } else {
                     final long diff = mRecordEnd - now;
                     mRecordDuration.setText(String.format("-%s", CameraUtil.getDurationString(diff)));
@@ -503,7 +503,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
         return true;
     }
 
-    public void stopRecordingVideo(boolean reachedZero, int videoId) {
+    public void stopRecordingVideo(boolean reachedZero, int videoId, String pPrompt) {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
     }
 
@@ -540,7 +540,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             setupFlashMode();
         } else if (id == R.id.video) {
             if (mIsRecording) {
-                stopRecordingVideo(false, videoId);
+                stopRecordingVideo(false, videoId, promptString);
                 mIsRecording = false;
             } else {
                 if (getArguments().getBoolean(CameraIntentKey.SHOW_PORTRAIT_WARNING, true) &&
