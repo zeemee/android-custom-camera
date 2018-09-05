@@ -16,7 +16,9 @@ public class PromptQuestion implements Parcelable{
     private String questionText;
     private boolean isGeneric;
     private boolean isAnswered;
-    //The related answers will come later
+    UserPrompt[] userArr;
+    boolean moreThanFiveUsers = false;
+    int overFlowUsersNum = 0;
 
     public PromptQuestion(int dbId, String question, boolean generic, boolean answer){
         this.dbId = dbId;
@@ -30,6 +32,12 @@ public class PromptQuestion implements Parcelable{
         questionText = in.readString();
         isGeneric = in.readByte() != 0;
         isAnswered = in.readByte() != 0;
+    }
+
+    public void setSimilarAnswers(UserPrompt[] pArr, boolean overFlowAvatars, int overFlowNum){
+        userArr = pArr;
+        moreThanFiveUsers = overFlowAvatars;
+        overFlowUsersNum = overFlowNum;
     }
 
     public static final Creator<PromptQuestion> CREATOR = new Creator<PromptQuestion>() {
@@ -76,6 +84,18 @@ public class PromptQuestion implements Parcelable{
         return isAnswered;
     }
 
+    public UserPrompt[] getUserArr() {
+        return userArr;
+    }
+
+    public boolean isMoreThanFiveUsers() {
+        return moreThanFiveUsers;
+    }
+
+    public int getOverFlowUsersNum() {
+        return overFlowUsersNum;
+    }
+
     public static ArrayList<PromptQuestion> parse(JSONObject responseObj){
         ArrayList<PromptQuestion> questionList = new ArrayList<PromptQuestion>();
         try {
@@ -97,7 +117,32 @@ public class PromptQuestion implements Parcelable{
                                     String questText = node.getString("questionText");
                                     boolean generic = node.getBoolean("isGeneric");
                                     boolean answered = node.getBoolean("isAnswered");
+                                    JSONObject relatedAnswers = node.getJSONObject("relatedAnswers");
+                                    int edgesNum = 0, overflowUsersNum = 0;
+                                    boolean moreThanFive = false;
+                                    UserPrompt[] arr = null;
+                                    if(relatedAnswers.has("edges") && relatedAnswers.getJSONArray("edges").opt(i) != null){
+                                        JSONArray userEdges = relatedAnswers.getJSONArray("edges");
+                                        if(userEdges.length() > 5){
+                                            edgesNum = 4;
+                                            moreThanFive = true;
+                                            overflowUsersNum = userEdges.length() - 4;
+                                        }
+                                        else {
+                                            edgesNum = userEdges.length();
+                                        }
+                                        arr = new UserPrompt[edgesNum];
+                                        UserPrompt user;
+                                        for(int j = 0; j < edgesNum; j++){
+                                            user = UserPrompt.parse(userEdges.getJSONObject(j).getJSONObject("node").getJSONObject("user"));
+                                            arr[j] = user;
+                                        }
+
+                                    }
                                     PromptQuestion question = new PromptQuestion(db, questText, generic, answered);
+                                    if(edgesNum > 0 && overflowUsersNum > 0){
+                                        question.setSimilarAnswers(arr,moreThanFive,overflowUsersNum);
+                                    }
                                     if (questionList.size() > 0) {
                                         if (question.getGeneric()) {
                                             if (genericPointer >= questionList.size()) {

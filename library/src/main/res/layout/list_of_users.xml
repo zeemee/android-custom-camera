@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="left|bottom">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/riv_one"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/clear_border_drawable_avatar"
+        android:visibility="gone"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/riv_two"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@+id/riv_one"
+        android:background="@drawable/clear_border_drawable_avatar"
+        android:layout_marginLeft="-13dp"
+        android:visibility="gone"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/riv_three"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@+id/riv_two"
+        android:background="@drawable/clear_border_drawable_avatar"
+        android:layout_marginLeft="-13dp"
+        android:visibility="gone"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/riv_four"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@+id/riv_three"
+        android:background="@drawable/clear_border_drawable_avatar"
+        android:layout_marginLeft="-13dp"
+        android:visibility="gone"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/riv_five"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@+id/riv_four"
+        android:background="@drawable/clear_border_drawable_avatar"
+        android:layout_marginLeft="-13dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_overflow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/clear_border_drawable_avatar"
+        android:gravity="center"
+        android:textSize="10dp"
+        android:textColor="@color/textOrBorderColor"
+        android:layout_toRightOf="@+id/riv_four"
+        android:layout_marginLeft="-13dp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

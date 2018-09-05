@@ -44,7 +44,9 @@ dependencies {
     compile "com.android.support:appcompat-v7:$SUPPORT_LIB_VERSION"
     compile "com.afollestad:easyvideoplayer:$VIDEO_PLAYER_VERSION"
     compile "com.afollestad.material-dialogs:core:$MD_VERSION"
+    compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.writingminds:FFmpegAndroid:0.3.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
 //apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'

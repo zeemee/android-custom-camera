@@ -36,7 +36,7 @@ public class VideoQuestionPromptsAdapter extends RecyclerView.Adapter<PromptView
     @Override
     public void onBindViewHolder(PromptViewHolder holder, int position) {
         PromptQuestion question = questions.get(position);
-        holder.bind(question);
+        holder.bind(question, mContext);
     }
 
     @Override
