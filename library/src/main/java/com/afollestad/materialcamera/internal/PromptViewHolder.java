@@ -2,23 +2,23 @@ package com.afollestad.materialcamera.internal;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialcamera.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 public class PromptViewHolder extends RecyclerView.ViewHolder {
 
     TextView mQuestionText, mOverFlowText;
-    Button mAnswerBtn;
-    RoundedImageView avatarOne, avatarTwo, avatarThree, avatarFour, avatarFive;
-    RelativeLayout avatarsRelative;
+    Button mAnswerBtn, mSomeDumbButton;
+    ImageView avatarOne, avatarTwo, avatarThree, avatarFour, avatarFive;
+    //RelativeLayout avatarsRelative;
     PromptAnswerCallback callback;
 
     public PromptViewHolder(View itemView, PromptAnswerCallback pCallback) {
@@ -31,22 +31,23 @@ public class PromptViewHolder extends RecyclerView.ViewHolder {
         mQuestionText = (TextView) view.findViewById(R.id.tvPromptItem);
         mOverFlowText = (TextView) view.findViewById(R.id.tv_overflow);
         mAnswerBtn = (Button) view.findViewById(R.id.btnAnswerItem);
-        avatarsRelative = (RelativeLayout) view.findViewById(R.id.rlAvatarAnswers);
-        avatarOne = (RoundedImageView) avatarsRelative.findViewById(R.id.riv_one);
-        avatarTwo = (RoundedImageView) avatarsRelative.findViewById(R.id.riv_two);
-        avatarThree = (RoundedImageView) avatarsRelative.findViewById(R.id.riv_three);
-        avatarFour = (RoundedImageView) avatarsRelative.findViewById(R.id.riv_four);
-        avatarFive = (RoundedImageView) avatarsRelative.findViewById(R.id.riv_five);
+        //avatarsRelative = (RelativeLayout) view.findViewById(R.id.rlAvatarAnswers);
+        avatarOne = (ImageView) view.findViewById(R.id.iv_avatar_one);
+        avatarTwo = (ImageView) view.findViewById(R.id.iv_avatar_two);
+        avatarThree = (ImageView) view.findViewById(R.id.iv_avatar_three);
+        avatarFour = (ImageView) view.findViewById(R.id.iv_avatar_four);
+        avatarFive = (ImageView) view.findViewById(R.id.iv_avatar_five);
     }
 
     public void bind(final PromptQuestion question, Context context){
-        mQuestionText.setText(question.getQuestionText());
-        UserPrompt[] users = question.getUserArr();
+        mOverFlowText.setVisibility(View.GONE);
         avatarOne.setVisibility(View.GONE);
         avatarTwo.setVisibility(View.GONE);
         avatarThree.setVisibility(View.GONE);
         avatarFour.setVisibility(View.GONE);
         avatarFive.setVisibility(View.GONE);
+        mQuestionText.setText(question.getQuestionText());
+        UserPrompt[] users = question.getUserArr();
         if(users != null) {
             for (int i = 0; i < users.length; i++) {
                 if (users[i] != null) {
@@ -55,11 +56,8 @@ public class PromptViewHolder extends RecyclerView.ViewHolder {
             }
             if(mOverFlowText != null) {
                 if (question.isMoreThanFiveUsers() && avatarFive != null) {
-                    avatarFive.setVisibility(View.GONE);
                     mOverFlowText.setVisibility(View.VISIBLE);
                     mOverFlowText.setText("+" + Integer.toString(question.getOverFlowUsersNum()));
-                } else {
-                    mOverFlowText.setVisibility(View.GONE);
                 }
             }
         }
@@ -79,28 +77,28 @@ public class PromptViewHolder extends RecyclerView.ViewHolder {
 
     public void showAvatar(int index, UserPrompt user, Context context){
 
-        if(index == 0 && avatarOne != null){
+        if(index == 0){
             avatarOne.setVisibility(View.VISIBLE);
-            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform()).into(avatarOne);
+            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.profile_placeholder_large)).into(avatarOne);
         }
-        if(index == 1 && avatarTwo != null){
+        if(index == 1){
             avatarTwo.setVisibility(View.VISIBLE);
-            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform()).into(avatarTwo);
+            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.profile_placeholder_large)).into(avatarTwo);
         }
 
-        if(index == 2 && avatarThree != null){
+        if(index == 2){
             avatarThree.setVisibility(View.VISIBLE);
-            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform()).into(avatarThree);
+            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.profile_placeholder_large)).into(avatarThree);
         }
 
-        if(index == 3 && avatarFour != null){
+        if(index == 3){
             avatarFour.setVisibility(View.VISIBLE);
-            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform()).into(avatarFour);
+            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.profile_placeholder_large)).into(avatarFour);
         }
 
-        if(index == 4 && avatarFive != null){
+        if(index == 4){
             avatarFive.setVisibility(View.VISIBLE);
-            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform()).into(avatarFive);
+            Glide.with(context).load(user.getThumb()).apply(RequestOptions.circleCropTransform().placeholder(R.drawable.profile_placeholder_large)).into(avatarFive);
         }
     }
 }

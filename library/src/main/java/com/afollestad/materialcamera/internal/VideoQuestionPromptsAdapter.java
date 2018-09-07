@@ -29,7 +29,7 @@ public class VideoQuestionPromptsAdapter extends RecyclerView.Adapter<PromptView
 
     @Override
     public PromptViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.prompt_item_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.prompt_layout, parent, false);
         return new PromptViewHolder(view, callback);
     }
 

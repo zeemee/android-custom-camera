@@ -6,7 +6,7 @@
     android:layout_marginRight="2dp"
     android:padding="12dp"
     android:background="@drawable/clear_border_drawable_question">
-    
+
     <TextView
         android:id="@+id/tvPromptItem"
         android:layout_width="wrap_content"
@@ -32,17 +32,6 @@
         android:textColor="@color/textOrBorderColor"
         android:background="@drawable/clear_border_drawable_button"/>
 
-    <Button
-        android:id="@+id/btnSOMEITEM"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:minHeight="40dip"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:background="@drawable/zeemee"/>
-
     <RelativeLayout
         android:id="@+id/rlAvatarAnswers"
         android:layout_width="120dp"
@@ -53,38 +42,36 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/ib_avatar_one"
+            android:id="@+id/iv_avatar_one"
             android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"/>
+            android:layout_height="30dp"/>
 
         <ImageView
-            android:id="@+id/riv_two"
+            android:id="@+id/iv_avatar_two"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toRightOf="@+id/riv_one"
+            android:layout_toRightOf="@+id/iv_avatar_one"
             android:layout_marginLeft="-13dp"/>
 
         <ImageView
-            android:id="@+id/riv_three"
+            android:id="@+id/iv_avatar_three"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toRightOf="@+id/riv_two"
+            android:layout_toRightOf="@+id/iv_avatar_two"
             android:layout_marginLeft="-13dp"/>
 
         <ImageView
-            android:id="@+id/riv_four"
+            android:id="@+id/iv_avatar_four"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toRightOf="@+id/riv_three"
+            android:layout_toRightOf="@+id/iv_avatar_three"
             android:layout_marginLeft="-13dp"/>
 
         <ImageView
-            android:id="@+id/riv_five"
+            android:id="@+id/iv_avatar_five"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_toRightOf="@+id/riv_four"
+            android:layout_toRightOf="@+id/iv_avatar_four"
             android:layout_marginLeft="-13dp"/>
 
         <TextView
@@ -95,7 +82,7 @@
             android:gravity="center"
             android:textSize="10dp"
             android:textColor="@color/textOrBorderColor"
-            android:layout_toRightOf="@+id/riv_four"
+            android:layout_toRightOf="@+id/iv_avatar_four"
             android:layout_marginLeft="-13dp"/>
 
     </RelativeLayout>
